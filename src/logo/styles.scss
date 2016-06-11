@@ -1,0 +1,25 @@
+.logo {
+	display: block;
+	transition: transform 0.15s;
+
+	&:active {
+		transform: scale(0.95)
+	}
+}
+
+.logo__img {
+	width: 31.5px;
+    height: 36px;
+	background: url('./logo.png');
+    background-size: 31.5px 36px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo__text {
+	font-size: 20px;
+    display: inline-block;
+    color: black;
+    vertical-align: middle;
+    margin-left: 8px;
+}

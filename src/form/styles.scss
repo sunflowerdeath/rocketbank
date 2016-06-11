@@ -1,0 +1,41 @@
+.form {
+    width: 610px;
+    max-width: 610px;
+    padding: 50px;
+    background: white;
+    color: #222222;
+}
+
+.form__cell {
+	position: relative;
+    margin-bottom: 20px;
+}
+
+.form__cell_half {
+	display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
+    width: 50%;
+    padding-right: 10px;
+}
+
+.form__label {
+	display: block;
+    margin-bottom: 10px;
+    color: #4a4a4a;
+    font-weight: 300;
+}
+
+.form__note {
+	margin-bottom: 2em;
+    color: #4a4a4a;
+    width: 330px;
+    margin-top: 5px;
+	line-height: 18px;
+    font-size: 12px;
+	display: inline-block;
+}
+
+.form__buttons_pos_right {
+	float: right
+}

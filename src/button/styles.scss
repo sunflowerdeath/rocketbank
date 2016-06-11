@@ -1,0 +1,41 @@
+$base-shadow: 
+	0px -1px 2px rgba(0,0,0,0.5) inset,
+	0px 1px 2px rgba(255,255,255,0.5) inset,
+	0px 1px 1px rgba(0,0,0,0.2);
+
+$focus-shadow:
+	0 0 0px 2px white,
+	0 0 0px 3px #57b7fa;
+
+.button {
+	position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 50px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+	font: bold 19px/55px "Bebas Neue", Arial, sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    background: linear-gradient(to top, rgba(0,0,0,0.07), rgba(0,0,0,0)), #2179da;
+    box-shadow: $base-shadow;
+    text-shadow: -1px -1px 1px rgba(0,0,0,0.3);
+    transition: background 50ms !important;
+    text-decoration: none;
+    overflow: hidden;
+    text-align: center;
+
+	&:active {
+		color: white;
+		box-shadow: 0 0 5px rgba(0,0,0,0.6) inset;
+		line-height: 58px;
+	}
+
+	&:focus {
+		outline: none;
+		box-shadow: $base-shadow, $focus-shadow;
+	}
+}
