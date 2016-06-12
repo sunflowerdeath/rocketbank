@@ -11,12 +11,31 @@
     margin-bottom: 20px;
 }
 
+.form__cell_size_small,
+.form__cell_size_medium {
+	display: inline-block;
+    vertical-align: top;
+}
+
+.form__cell_size_small {
+	width: 100px;
+	margin-right: 20px;
+}
+
+.form__cell_size_medium {
+	width: 150px;
+	margin-right: 20px;
+}
+
 .form__cell_half {
 	display: inline-block;
     vertical-align: top;
     box-sizing: border-box;
     width: 50%;
-    padding-right: 10px;
+}
+
+.form__cell_half:nth-child(even) {
+    padding-left: 10px;
 }
 
 .form__label {
@@ -34,6 +53,14 @@
 	line-height: 18px;
     font-size: 12px;
 	display: inline-block;
+}
+
+.form__buttons {
+	float: left
+}
+
+.form__buttons_topPadding {
+	padding-top: 10px;
 }
 
 .form__buttons_pos_right {

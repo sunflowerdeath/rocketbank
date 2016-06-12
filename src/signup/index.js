@@ -1,10 +1,10 @@
 import React from 'react'
 
-import Profile from '../profile'
 import Logo from '../logo'
-import ProfileForm from '../profile'
-import PassportForm from '../passportForm'
-import AddressForm from '../addressForm'
+import ProfileStep from '../profileStep'
+import PassportStep from '../passportStep'
+import AddressStep from '../addressStep'
+import CardStep from '../cardStep'
 
 import createCssHelper from '../cssHelper'
 import cssModule from './styles.scss'
@@ -18,30 +18,63 @@ export default class Signup extends React.Component {
 	state = {
 		steps: [
 			{
+				key: 'profile',
 				name: 'Профиль',
-				component: ProfileForm
+				component: ProfileStep,
+				values: {
+					gender: 'male'
+				}
 			},
 			{
+				key: 'passport',
 				name: 'Паспорт',
-				component: PassportForm
+				component: PassportStep,
+				values: {
+					hasCitizenship: 'yes'
+				}
 			},
 			{
+				key: 'address',
 				name: 'Адрес регистрации',
-				component: AddressForm
+				component: AddressStep
 			},
 			{
+				key: 'card',
 				name: 'Карта',
-				component: PassportForm
+				component: CardStep
 			}
 		]
+	}
+
+	componentWillMount() {
+		this.redirectIfPrevStepsInvalid(this.props.params.step)
 	}
 
 	componentDidMount() {
 		this.context.router.setRouteLeaveHook(this.props.route, this.routerWillLeave.bind(this))
     }
 
+	componentWillReceiveProps(nextProps) {
+		this.redirectIfPrevStepsInvalid(nextProps.params.step)
+	}
+
+	redirectIfPrevStepsInvalid(step) {
+		let index = Number(step) - 1
+		let redirectUrl
+		for (let i = 0; i < index; i++) {
+			if (!this.state.steps[i].isValid) {
+				redirectUrl = '/' + (i + 1)
+				break;
+			}
+		}
+		if (redirectUrl) this.context.router.push(redirectUrl)
+	}
+
     routerWillLeave(nextLocation) {
-		// save current step
+		this.saveCurrensStepState()
+	}
+
+	saveCurrensStepState(callback) {
 		let index = Number(this.props.params.step) - 1
 		let step = {
 			...this.state.steps[index],
@@ -54,7 +87,7 @@ export default class Signup extends React.Component {
 				step,
 				...this.state.steps.slice(index + 1)
 			]
-		})
+		}, callback)
     }
 
 	render() {
@@ -105,7 +138,8 @@ export default class Signup extends React.Component {
 				</p>
 				<p className={cssHelper('signup', 'footerNote')}>
 					ПАО «Ханты‑Мансийский банк Открытие». www.openbank.ru
-					Генеральная лицензия Банка России №1971 от&nbsp;05.11.2014. Филиал «Бизнес онлайн».
+					Генеральная лицензия Банка России №1971 от&nbsp;05.11.2014.
+					Филиал «Бизнес онлайн».
 				</p>
 			</div>
 		)
@@ -133,15 +167,33 @@ export default class Signup extends React.Component {
 		return React.createElement(step.component, {
 			ref: (ref) => { this.formRef = ref },
 			values: step.values,
-			onComplete: () => {
-				let index = Number(this.props.params.step) + 1
-				this.context.router.push('/' + index)
-			},
-			onGoBack: () => {
-				let index = Number(this.props.params.step) - 1
-				this.context.router.push('/' + index)
-				console.log('URL', '/' + index)
-			}
+			onComplete: this.completeStep.bind(this),
+			onGoBack: this.goBack.bind(this)
 		})
+	}
+
+	completeStep() {
+		let index = Number(this.props.params.step)
+		if (index === this.state.steps.length) {
+			this.completeSignup()
+		} else {
+			this.saveCurrensStepState(() => {
+				this.context.router.push('/' + (index + 1))
+			})
+		}
+	}
+
+	goBack() {
+		this.saveCurrensStepState(() => {
+			let index = Number(this.props.params.step)
+			this.context.router.push('/' + (index - 1))
+		})
+	}
+
+	completeSignup() {
+		let data = {}
+		this.state.steps.forEach((step) => { data[step.key] = step.values })
+		alert('Готово')
+		console.log(data)
 	}
 }

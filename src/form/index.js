@@ -17,7 +17,10 @@ function FormNote(props) {
 }
 
 function FormButtons(props) {
-	return <div className={cssHelper('form', 'buttons', {pos:props.pos})}>
+	return <div className={cssHelper('form', 'buttons', {
+		pos: props.pos,
+		topPadding: props.topPadding
+	})}>
 		{props.children}
 	</div>
 }
@@ -25,7 +28,13 @@ FormButtons.defaultProps = {pos: 'left'}
 
 function FormCell(props) {
 	return (
-		<div className={cssHelper('form', 'cell', {half: props.half})}>
+		<div
+			className={cssHelper('form', 'cell', {
+				half: props.half,
+				size: props.size,
+			})}
+			style={props.style}
+		>
 			{props.children}
 		</div>
 	)

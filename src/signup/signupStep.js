@@ -2,6 +2,10 @@ import React from 'react'
 import Formsy from 'formsy-react'
 
 export default class SignupStep extends React.Component {
+	static defaultProps = {
+		values: {}
+	}
+
 	render() {
 		return (
 			<Formsy.Form

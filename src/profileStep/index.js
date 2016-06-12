@@ -39,7 +39,7 @@ let nameFieldProps = {
 	}
 }
 
-export default class ProfileForm extends SignupStep {
+export default class ProfileStep extends SignupStep {
 	static defaultProps = {
 		values: {}
 	}
@@ -78,7 +78,7 @@ export default class ProfileForm extends SignupStep {
 
 				<FormCell half={true}>
 					<FormLabel>Пол</FormLabel>
-					<RadioGroup name='gender'>
+					<RadioGroup name='gender' value={this.props.values.gender}>
 						<RadioButton value='male'>мужской</RadioButton>
 						<RadioButton value='female'>женский</RadioButton>
 					</RadioGroup>
@@ -89,6 +89,7 @@ export default class ProfileForm extends SignupStep {
 					<TextField
 						name='phone'
 						value={this.props.values.phone}
+						required={true}
 						validations='phone'
 						validationErrors={{
 							phone: 'Неправильный номер'
@@ -96,7 +97,7 @@ export default class ProfileForm extends SignupStep {
 						mask={{
 							mask: '+7 (111) 111-11-11',
 							placeholder:  '+7 (000) 000-00-00',
-							placeholderChar: '\u2007',
+							placeholderChar: '\u2007'
 						}}
 					/>
 				</FormCell>
@@ -106,6 +107,7 @@ export default class ProfileForm extends SignupStep {
 					<TextField
 						name='email'
 						value={this.props.values.email}
+						required={true}
 						validations='isEmail'
 						validationErrors={{
 							isEmail: 'Ошибка в адресе эл. почты'
@@ -119,6 +121,7 @@ export default class ProfileForm extends SignupStep {
 						arrow={true}
 						name='codeword'
 						value={this.props.values.codeword}
+						required={true}
 						validations='cyrillicOrDigits'
 						validationErrors={{
 							cyrillicOrDigits: 'Только русские буквы и цифры'
@@ -134,7 +137,7 @@ export default class ProfileForm extends SignupStep {
 				<FormButtons pos='right'>
 					<Button type='submit'>Далее</Button>
 				</FormButtons>
-			</div>	
+			</div>
 		)
 	}
 }
